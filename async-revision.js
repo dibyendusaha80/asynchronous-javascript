@@ -258,3 +258,30 @@ let newUser2 = {name: "Maria", age: 27};
 // validateAge(newUser1).then(displayUsers).catch(function(error) {console.log(error)});
 validateAge(newUser2).then(displayUsers).catch(function(error) {console.log(error)});
 
+
+function multiply(num1, num2) {
+    if(num1 > 0 && num2 > 0) {
+      return num1 * num2;
+    } else {
+      return "Error while multiplying";
+    }
+  };
+  
+  function getPromise(num1, num2) {
+    return new Promise((resolve, reject) => {
+      const result = multiply(num1, num2);
+      if(typeof result === "number") {
+        resolve(result);
+      } else {
+        reject(result)
+      }
+    });
+  };
+  
+  getPromise(4, 5)
+   .then(result => console.log(result)) // 16
+   .catch(error => console.log(error));
+  
+  getPromise(-5, 3)
+   .then(result => console.log(result))
+   .catch(error => console.log(error)); // Error while multiplying
