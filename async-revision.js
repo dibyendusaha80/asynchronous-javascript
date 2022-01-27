@@ -2,12 +2,14 @@
 function display(some) {
     console.log(some);
 }
+
 function calculator(a, b) {
     setTimeout(() => {
         let c = a + b;
         return c;
     }, 2000);
 }
+
 let result = calculator(5, 10);
 display(result);
 
