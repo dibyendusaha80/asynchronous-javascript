@@ -38,36 +38,73 @@ function getContinents(callback) {
     }, 2000);
 }
 
-function getCountries(continent, callback) {
+const posts = [
+    { title: 'Post One', body: 'This is post one' },
+    { title: 'Post Two', body: 'This is post two' }
+];
+
+function getPosts() {
     setTimeout(() => {
-        let countries = ['India', 'Pakistan', 'Bangladesh', 'Sri Lanka'];
-        callback(countries);
+        posts.forEach((post) => {
+            console.log(post);
+        });
+    }, 1000);
+}
+
+function createPost(newPost, callback) {
+    setTimeout(() => {
+        posts.push(newPost);
+        callback();
     }, 2000);
 }
 
-function getStates(country, callback) {
-    setTimeout(() => {
-        let states = ['UP', 'MH', 'MP', 'AP'];
-        callback(states);
-    }, 2000);
-}
+createPost({ title: 'Post Three', body: 'This is post three' }, getPosts);
 
-function getCities(state, callback) {
-    setTimeout(() => {
-        let cities = ['Lucknow', 'Kanpur', 'Prayagraj', 'Meerut'];
-        callback(cities);
-    }, 2000);
-}
 
-getContinents(function (continent) {
-    getCountries(continent, function (countries) {
-        getStates(countries[0], function (states) {
-            getCities(states[0], function (cities) {
-                console.log(cities);
-            })
-        })
-    })
-})
+function getName(callback) {
+    setTimeout(() => {
+        this.name = "John";
+        console.log("Getting name");
+        callback();
+    }, 1000);
+};
+function getLastName(callback) {
+    setTimeout(() => {
+        this.lastname = "Rambo";
+        console.log("Getting lastname");
+        callback();
+    }, 1000);
+};
+function getAge(callback) {
+    setTimeout(() => {
+        this.age = "30";
+        console.log("Getting age");
+        callback();
+    }, 1000);
+};
+function getGender(callback) {
+    setTimeout(() => {
+        this.gender = "M";
+        console.log("Getting gender");
+        callback();
+    }, 1000);
+};
+function showFullName() {
+    console.log(this.name + " " + this.lastname + ", " + this.gender + ", " + this.age + " years old");
+};
+function getUser() {
+    getName(function () {
+        getLastName(function () {
+            getAge(function () {
+                getGender(function () {
+                    showFullName();
+                })
+            });
+        });
+    });
+};
+getUser();
+
 
 //promise
 function getTrip(destination) {
@@ -91,36 +128,65 @@ getTrip("ooty").then(
     )
 
 //promise chaining
-function checkEven(num) {
-    return new Promise(function (resolve, reject) {
-        if (num % 2 == 0) {
-            resolve(num / 2);
-        } else {
-            reject("Not an even number")
+const users = [
+    {id:1, name:'John', gender:'M', age:25},
+    {id:2, name:'Maria', gender:'F', age:22},
+    {id:3, name:'David', gender:'M', age:24}
+];
+function getUsers() {
+    return new Promise((resolve, reject) => {
+        users.forEach((user) => {
+            console.log(user);
+        });
+        resolve();  
+    })
+}
+function validateNewUser(newUser) {
+    return new Promise((resolve, reject) => {
+        if(newUser.name && newUser.gender && newUser.age > 18) {
+            resolve(newUser);
+        }
+        else {
+            reject("New user is not valid");
         }
     })
 }
-function square(num) {
-    return new Promise(function (resolve) {
-        resolve(num * num)
+function addUser(newUser) {
+    return new Promise((resolve, reject) => {
+        let lastId = Math.max.apply(Math, users.map(function(user) { return user.id; }));
+        newUser.id = lastId + 1;
+        users.push(newUser);
+        resolve();
     })
 }
-checkEven(10)
-    .then(function (num) { return square(num) })
-    .then(function (result) { console.log("Square of the number is " + result) })
-    .catch(function (error) { console.log(error) });
+let newUser1 = {name:'Jack', gender:'M', age:28};
+validateNewUser(newUser1)
+    .then((data) => {
+        return addUser(data);
+    })
+    .then(() => {
+        return getUsers();
+    })
+    .then()
+    .catch((error) => {
+        console.log(error);
+    })
+
 
 //using async-await
-async function getResult(num) {
+let newUser2 = {name:'Jack', gender:'M', age:28};
+async function run(user) {
     try {
-        let newNum = await checkEven(num);
-        let result = await square(newNum);
-        console.log("Square of the number is " + result);
-    } catch (error) {
+        let validatedUser = await validateNewUser(user);
+        await addUser(validatedUser);
+        await getUsers();
+    }
+    catch(error) {
         console.log(error);
     }
 }
-getResult(5);
+run(newUser2);
+
 
 //timer functions
 function myFunction() {
@@ -132,18 +198,30 @@ console.log("Start");
 myFunction();
 console.log("End");
 
+// program to display time every 1 seconds
+function timer() {
+    let dateTime = new Date();
+    console.log(dateTime.toLocaleTimeString());
+    setTimeout(timer, 1000);
+}
+timer();
+
 function myTimer() {
     const date = new Date();
     console.log(date.toLocaleTimeString());
 }
 setInterval(myTimer, 1000);
 
-function myTimer() {
+function timer1() {
     const date = new Date();
     console.log(date.toLocaleTimeString());
+
 }
-let id = setInterval(myTimer, 1000);
-clearInterval(id);
+let id = setInterval(timer1, 1000);
+setTimeout(() => {
+    clearInterval(id);
+}, 10000);
+
 
 function myFunction() {
     console.log("function completed");
