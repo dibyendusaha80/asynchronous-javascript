@@ -334,7 +334,9 @@ function validateAge(user) {
 // let newUser1 = {name: "Jack", age: 21};
 let newUser2 = {name: "Maria", age: 27};
 // validateAge(newUser1).then(displayUsers).catch(function(error) {console.log(error)});
-validateAge(newUser2).then(displayUsers).catch(function(error) {console.log(error)});
+validateAge(newUser2)
+    .then(displayUsers)
+    .catch(function(error) {console.log(error)});
 
 
 function multiply(num1, num2) {
