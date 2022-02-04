@@ -212,6 +212,25 @@ function myTimer() {
 }
 setInterval(myTimer, 1000);
 
+{/* <html>
+<head>
+    <title> setInterval() method </title>
+</head>
+<body>
+    <h3> This is an example of using the setInterval() method </h3>
+    <p> Here, the text color changes on every 200 milliseconds. </p>
+    <script>
+        var var1 = setInterval(color, 200);
+        function color() {
+            var var2 = document.querySelector('p');
+            console.log(var2)
+            var2.style.backgroundColor == "lightblue" ? "lightgreen" : "lightblue";
+        }
+    </script>
+</body>
+</html> */}
+
+
 function timer1() {
     const date = new Date();
     console.log(date.toLocaleTimeString());
@@ -228,6 +247,23 @@ function myFunction() {
 }
 let id = setTimeout(myFunction, 2000);
 clearTimeout(id);
+
+{/* <html>
+<body>
+    <p>Click the button before 3 seconds to prevent the timeout to execute.</p>
+    <h2 id="demo"></h2>
+    <button onclick="myStopFunction()">Stop</button>
+    <script>
+        const myTimeout = setTimeout(showMsg, 3000);
+        function showMsg() {
+            document.getElementById("demo").innerHTML = "Timeout executed";
+        }
+        function myStopFunction() {
+            clearTimeout(myTimeout);
+        }
+    </script>
+</body>
+</html> */}
 
 //exercises solutions
 function getData(callback) {
